@@ -25,4 +25,17 @@ mixin _$Controller on _ControllerBase, Store {
       _$valueAtom.reportChanged();
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
+
+  final _$_ControllerBaseActionController =
+      ActionController(name: '_ControllerBase');
+
+  @override
+  dynamic increment() {
+    final _$actionInfo = _$_ControllerBaseActionController.startAction();
+    try {
+      return super.increment();
+    } finally {
+      _$_ControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 }

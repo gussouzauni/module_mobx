@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:module_mobx_01/src/models/controller.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,29 +25,33 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  _textField({String labelText, onChanged, String Function() errorText}) {
-    return TextField(
-        onChanged: onChanged,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: labelText,
-            errorText: errorText == null ? null : errorText()));
-  }
+  final controller = Controller();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Mobx - Reatividade"),
-          backgroundColor: Colors.amber,
+      appBar: AppBar(
+        title: Text("Mobx - Reatividade"),
+        backgroundColor: Colors.amber,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Observer(
+              builder: (_) {
+                return Text('${controller.value}');
+              },
+            ),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              _textField(labelText: "name"),
-            ],
-          ),
-        ));
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: controller.validate,
+        ),
+      ),
+    );
   }
 }
